@@ -20,7 +20,7 @@ class Conv3x3GNReLU(nn.Module):
     def forward(self, x):
         x = self.block(x)
         if self.upsample:
-            x = F.interpolate(x, scale_factor=2, mode="bilinear", align_corners=True)
+            x = F.interpolate(x, scale_factor=2, mode="bilinear", align_corners=False)
         return x
 
 
