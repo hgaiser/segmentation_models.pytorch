@@ -1,3 +1,5 @@
+import functools
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -61,7 +63,7 @@ class MergeBlock(nn.Module):
 
     def forward(self, x):
         if self.policy == "add":
-            return sum(x)
+            return functools.reduce(lambda acc, s: acc.add_(s), x, torch.zeros_like(x[0]))
         elif self.policy == "cat":
             return torch.cat(x, dim=1)
         else:
